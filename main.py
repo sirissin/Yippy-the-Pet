@@ -66,6 +66,9 @@ class Game:
 
         # Creating parameters of the pet
         self.pet = Pet(self.width / 2, self.height / 2, 50, 100, 180, 255)
+        self.speed = 2
+        self.d_x = 0
+        self.d_y = 0
 
     # Checking to see which item has been clicked
     def handle_mouse_click(self):
@@ -76,6 +79,9 @@ class Game:
             self.item_mode_index = 1
         elif self.toy_button.image_rect.collidepoint(pos):
             self.item_mode_index = 2
+        # Do nothing if bar is selected (don't place item)
+        elif pos[1] < self.buttons_bar_height:
+            return
         else:
             self.create_item(pos)
 
@@ -84,11 +90,29 @@ class Game:
         if self.item_mode_index == 0:
             self.item = Item(pos[0], pos[1], 20, 0, self.image_names[0])
         elif self.item_mode_index == 1:
-            self.item = Item(pos[0], pos[1], 10, 10, self.image_names[1])
+            self.item = Item(pos[0], pos[1], -10, 60, self.image_names[1])
         elif self.item_mode_index == 2:
-            self.item = Item(pos[0], pos[1], 0, 20, self.image_names[2])
+            self.item = Item(pos[0], pos[1], 0, 40, self.image_names[2])
+        self.set_speed()
+
+    # Balancing how fast the Pet moves toward the item (so it doesn't move up or sideways quicker than each other)
+    def set_speed(self):
+        d_x = abs(self.pet.x - self.item.x)
+        d_y = abs(self.pet.y - self.item.y)
+        if d_x >= d_y:
+            self.d_x = self.speed
+            self.d_y = self.speed * (d_y / d_x)
         else:
-            self.item_mode_index = 4
+            self.d_x = self.speed * (d_x / d_y)
+            self.d_y = self.speed
+
+        # Checking to see if the item is to the left or below the pet
+        if self.pet.x > self.item.x:
+            self.d_x = -self.d_x
+        if self.pet.y > self.item.y:
+            self.d_y = -self.d_y
+
+
 
     def draw_everything(self):
         self.screen.fill(self.background_color)
