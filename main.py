@@ -50,6 +50,10 @@ class Pet:
             self.happiness = 0
         self.color = pygame.Color(0, self.happiness, 0)
 
+    # Checking if the pet is dead
+    def check_if_dead(self):
+        return self.health <= 0 or self.happiness <= 0
+
 
 # Class for items/buttons
 class Item:
@@ -96,6 +100,10 @@ class Game:
         self.speed = 2
         self.d_x = 0
         self.d_y = 0
+        self.decay_rate = -1
+        self.current_tick = 0
+        self.size_update_rate = self.clock_tick / 3
+        self.color_update_rate = self.clock_tick / 10
 
     # Checking to see which item has been clicked
     def handle_mouse_click(self):
@@ -150,7 +158,17 @@ class Game:
 
     # Moves the pet
     def update_pet(self):
+        # Movement
         self.pet.move(self.d_x, self.d_y)
+
+        # Decay health and happiness
+        self.current_tick += 1
+        if self.current_tick % self.size_update_rate == 0:
+            self.pet.update_health(self.decay_rate)
+        if self.current_tick % self.color_update_rate == 0:
+            self.pet.update_happiness(self.decay_rate)
+        if self.current_tick == 60:
+            self.current_tick = 0
 
     def draw_everything(self):
         self.screen.fill(self.background_color)
@@ -182,6 +200,10 @@ class Game:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     self.handle_mouse_click()
             self.handle_item_collision()
+
+            if self.pet.check_if_dead():
+                pygame.quit()
+                return
 
             self.update_pet()
 
