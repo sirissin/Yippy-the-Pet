@@ -28,6 +28,28 @@ class Pet:
         self.x += x_amount
         self.y += y_amount
 
+    # Functionality for consuming the item
+    def consume_item(self, item):
+        self.update_health(item.health)
+        self.update_happiness(item.happiness)
+
+    # Functionality for updating health after consumption
+    def update_health(self, d_h):
+        self.health += d_h
+        if self.health > self.max_health:
+            self.health = self.max_health
+        elif self.health < 0:
+            self.health = 0
+
+    # Functionality for updating the happiness after consumption
+    def update_happiness(self, d_h):
+        self.happiness += d_h
+        if self.happiness > self.max_happiness:
+            self.happiness = self.max_happiness
+        elif self.happiness < 0:
+            self.happiness = 0
+        self.color = pygame.Color(0, self.happiness, 0)
+
 
 # Class for items/buttons
 class Item:
@@ -121,6 +143,7 @@ class Game:
     # Looks for pet/item collision and deletes the item
     def handle_item_collision(self):
         if self.item != None and self.item.image_rect.colliderect(self.pet.get_rect()):
+            self.pet.consume_item(self.item)
             self.item = None
             self.d_x = 0
             self.d_y = 0
@@ -132,6 +155,13 @@ class Game:
     def draw_everything(self):
         self.screen.fill(self.background_color)
 
+        # Placing the Items
+        if self.item != None:
+            self.screen.blit(self.item.image, self.item.image_rect)
+
+        # Placing the Pet
+        pygame.draw.circle(self.screen, self.pet.color, self.pet.get_pos(), self.pet.health)
+
         # Drawing the buttons bar
         pygame.draw.rect(self.screen, self.buttons_bar_color, pygame.Rect(0, 0, self.width, self.buttons_bar_height))
 
@@ -139,13 +169,6 @@ class Game:
         self.screen.blit(self.apple_button.image, self.apple_button.image_rect)
         self.screen.blit(self.icecream_button.image, self.icecream_button.image_rect)
         self.screen.blit(self.toy_button.image, self.toy_button.image_rect)
-
-        # Placing the Items
-        if self.item != None:
-            self.screen.blit(self.item.image, self.item.image_rect)
-
-        # Placing the Pet
-        pygame.draw.circle(self.screen, self.pet.color, self.pet.get_pos(), self.pet.health)
 
         # Update the Screen
         pygame.display.update()
