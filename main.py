@@ -23,6 +23,11 @@ class Pet:
     def get_rect(self):
         return pygame.Rect(self.x - self.health, self.y - self.health, self.health * 2, self.health * 2)
 
+    # Defining how the pet moves
+    def move(self, x_amount, y_amount):
+        self.x += x_amount
+        self.y += y_amount
+
 
 # Class for items/buttons
 class Item:
@@ -93,6 +98,7 @@ class Game:
             self.item = Item(pos[0], pos[1], -10, 60, self.image_names[1])
         elif self.item_mode_index == 2:
             self.item = Item(pos[0], pos[1], 0, 40, self.image_names[2])
+        # Setting the pet's speed according to the item
         self.set_speed()
 
     # Balancing how fast the Pet moves toward the item (so it doesn't move up or sideways quicker than each other)
@@ -112,7 +118,16 @@ class Game:
         if self.pet.y > self.item.y:
             self.d_y = -self.d_y
 
+    # Looks for pet/item collision and deletes the item
+    def handle_item_collision(self):
+        if self.item != None and self.item.image_rect.colliderect(self.pet.get_rect()):
+            self.item = None
+            self.d_x = 0
+            self.d_y = 0
 
+    # Moves the pet
+    def update_pet(self):
+        self.pet.move(self.d_x, self.d_y)
 
     def draw_everything(self):
         self.screen.fill(self.background_color)
@@ -143,6 +158,9 @@ class Game:
                     return
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     self.handle_mouse_click()
+            self.handle_item_collision()
+
+            self.update_pet()
 
             self.draw_everything()
             self.clock.tick(self.clock_tick)
