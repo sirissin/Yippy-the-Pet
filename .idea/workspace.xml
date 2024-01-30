@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9653676-5d66-4551-9015-f919acfb857b" name="Changes" comment="General Setup">
+    <list default="true" id="c9653676-5d66-4551-9015-f919acfb857b" name="Changes" comment="Functionality for the window to pop-up on run. &#10;&#10;Created the Item/button class.">
+      <change afterPath="$PROJECT_DIR$/apple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icecream.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/toy.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -23,22 +26,27 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2bVJpe9633Umxi4wEasTW60EzsX" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Yippy the Pet" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -63,11 +71,20 @@
       <option name="project" value="LOCAL" />
       <updated>1706295576961</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Functionality for the window to pop-up on run. &#10;&#10;Created the Item/button class.">
+      <option name="closed" value="true" />
+      <created>1706299072603</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706299072603</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="General Setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="General Setup" />
+    <MESSAGE value="Functionality for the window to pop-up on run. &#10;&#10;Created the Item/button class." />
+    <option name="LAST_COMMIT_MESSAGE" value="Functionality for the window to pop-up on run. &#10;&#10;Created the Item/button class." />
   </component>
 </project>

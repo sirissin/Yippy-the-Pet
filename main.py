@@ -22,14 +22,32 @@ class Game:
         self.height = 500
         self.background_color = "white"
 
+        # Buttons bar parameters
+        self.buttons_bar_height = 100
+        self.buttons_bar_color = "orange"
+
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("Yippy the Pet")
 
         self.clock_tick = 60
         self.clock = pygame.time.Clock()
 
+        # Creating the parameters of the buttons
+        self.image_names = ["apple.png", "icecream.png", "toy.png"]
+        self.apple_button = Item(self.width / 4, self.buttons_bar_height / 2, 0, 0, self.image_names[0])
+        self.icecream_button = Item(self.width / 2, self.buttons_bar_height / 2, 0, 0, self.image_names[1])
+        self.toy_button = Item(self.width / 1.25, self.buttons_bar_height / 2, 0, 0, self.image_names[2])
+
     def draw_everything(self):
         self.screen.fill(self.background_color)
+
+        # Drawing the buttons bar
+        pygame.draw.rect(self.screen, self.buttons_bar_color, pygame.Rect(0, 0, self.width, self.buttons_bar_height))
+
+        # Placing the buttons
+        self.screen.blit(self.apple_button.image, self.apple_button.image_rect)
+        self.screen.blit(self.icecream_button.image, self.icecream_button.image_rect)
+        self.screen.blit(self.toy_button.image, self.toy_button.image_rect)
         pygame.display.update()
 
     def run(self):
