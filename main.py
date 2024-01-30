@@ -58,9 +58,37 @@ class Game:
 
         # Creating the parameters of the buttons
         self.image_names = ["apple.png", "icecream.png", "toy.png"]
+        self.item_mode_index = 0
+        self.item = None
         self.apple_button = Item(self.width / 4, self.buttons_bar_height / 2, 0, 0, self.image_names[0])
         self.icecream_button = Item(self.width / 2, self.buttons_bar_height / 2, 0, 0, self.image_names[1])
         self.toy_button = Item(self.width * 3 / 4, self.buttons_bar_height / 2, 0, 0, self.image_names[2])
+
+        # Creating parameters of the pet
+        self.pet = Pet(self.width / 2, self.height / 2, 50, 100, 180, 255)
+
+    # Checking to see which item has been clicked
+    def handle_mouse_click(self):
+        pos = pygame.mouse.get_pos()
+        if self.apple_button.image_rect.collidepoint(pos):
+            self.item_mode_index = 0
+        elif self.icecream_button.image_rect.collidepoint(pos):
+            self.item_mode_index = 1
+        elif self.toy_button.image_rect.collidepoint(pos):
+            self.item_mode_index = 2
+        else:
+            self.create_item(pos)
+
+    # Placing down the item
+    def create_item(self, pos):
+        if self.item_mode_index == 0:
+            self.item = Item(pos[0], pos[1], 20, 0, self.image_names[0])
+        elif self.item_mode_index == 1:
+            self.item = Item(pos[0], pos[1], 10, 10, self.image_names[1])
+        elif self.item_mode_index == 2:
+            self.item = Item(pos[0], pos[1], 0, 20, self.image_names[2])
+        else:
+            self.item_mode_index = 4
 
     def draw_everything(self):
         self.screen.fill(self.background_color)
@@ -73,6 +101,13 @@ class Game:
         self.screen.blit(self.icecream_button.image, self.icecream_button.image_rect)
         self.screen.blit(self.toy_button.image, self.toy_button.image_rect)
 
+        # Placing the Items
+        if self.item != None:
+            self.screen.blit(self.item.image, self.item.image_rect)
+
+        # Placing the Pet
+        pygame.draw.circle(self.screen, self.pet.color, self.pet.get_pos(), self.pet.health)
+
         # Update the Screen
         pygame.display.update()
 
@@ -82,9 +117,12 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    self.handle_mouse_click()
 
             self.draw_everything()
             self.clock.tick(self.clock_tick)
+
 
 pygame.init()
 game = Game()
